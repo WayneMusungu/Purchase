@@ -1,3 +1,5 @@
+from decouple import config
+
 """
 Django settings for purchase project.
 
@@ -20,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wd2fdemz33q2&ewde3(lp^gkczl^6+_l2jwkgyv%539%(wclqw'
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'customers.apps.CustomersConfig',
+    'orders.apps.OrdersConfig'
 ]
 
 MIDDLEWARE = [
