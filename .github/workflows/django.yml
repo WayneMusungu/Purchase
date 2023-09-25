@@ -1,0 +1,50 @@
+name: Django CI
+
+
+on: [push]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql
+        env:
+          MYSQL_DATABASE: github_actions
+          MYSQL_ROOT_PASSWORD: mysql
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.10.6]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      env: 
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        API_KEY: ${{ secrets.API_KEY }}
+        USERNAME_KEY: ${{ secrets.USERNAME_KEY }}
+        
+        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+        DATABASE_USER: ${{ secrets.DATABASE_USER }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+        
+        DEBUG: ${{ secrets.DEBUG }}
+      run: |
+        python manage.py test
