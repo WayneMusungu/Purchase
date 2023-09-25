@@ -38,7 +38,7 @@ jobs:
       env: 
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         API_KEY: ${{ secrets.API_KEY }}
-        USERNAME_KEY: ${{ secrets.USERNAME_KEY }}
+        USERNAME: ${{ secrets.USERNAME }}
         
         DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
         DATABASE_USER: ${{ secrets.DATABASE_USER }}
