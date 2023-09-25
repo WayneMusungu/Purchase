@@ -1,6 +1,6 @@
 import africastalking
-from purchase.settings import username, api_key
-africastalking.initialize(username, api_key)
+from purchase.settings import USERNAME, API_KEY
+africastalking.initialize(USERNAME, API_KEY)
 
 default_country_code = "+254" 
 
@@ -28,5 +28,5 @@ def sending(phone):
         print(response_data)
         return response_data
     except Exception as e:
-        error_message = f', we have a problem: {e}'
+        error_message = f'Houston, we have a problem: {e}'
         return {'error': error_message}
