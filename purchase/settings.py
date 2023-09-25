@@ -1,4 +1,6 @@
 from decouple import config
+import os
+
 
 """
 Django settings for purchase project.
@@ -23,6 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+api_key = config('api_key')
+username = config('username')
+
+
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
