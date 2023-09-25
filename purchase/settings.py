@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-api_key = config('api_key')
-username = config('username')
+API_KEY = config('api_key')
+USERNAME = config('username')
 
 
 
