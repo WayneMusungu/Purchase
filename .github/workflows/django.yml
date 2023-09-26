@@ -37,8 +37,9 @@ jobs:
     - name: Run Tests
       env: 
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        API_KEY: ${{ secrets.API_KEY }}
-        USERNAME: ${{ secrets.USERNAME }}
+        api_key: ${{ secrets.api_key }}
+        username: ${{ secrets.username }}
+        sender: ${{ secrets.sender }}
         
         DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
         DATABASE_USER: ${{ secrets.DATABASE_USER }}
