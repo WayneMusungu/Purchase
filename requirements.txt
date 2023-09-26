@@ -18,11 +18,13 @@ psycopg2-binary==2.9.7
 pycparser==2.21
 pycryptodome==3.19.0
 PyJWT==2.8.0
+python-decouple==3.8
 python-dotenv==1.0.0
 pytz==2023.3.post1
 requests==2.31.0
 schema==0.7.5
 sqlparse==0.4.4
+typing_extensions==4.8.0
 tzdata==2023.3
 urllib3==2.0.4
 whitenoise==6.5.0
