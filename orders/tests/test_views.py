@@ -49,7 +49,7 @@ class ItemTestCase(TestCase):
 
         # Set up data for creating a superuser
         self.superuser_data = {
-            'USERNAME': 'admin',
+            'username': 'admin',
             'password': 'adminpassword',
             'email': 'admin@example.com',
         }
@@ -64,11 +64,11 @@ class ItemTestCase(TestCase):
         self.challenge = code_challenge
 
         # Create a superuser for testing
-        self.user = User.objects.create_superuser(USERNAME=self.superuser_data["USERNAME"], email=self.superuser_data['email'], password=self.superuser_data["password"])
+        self.user = User.objects.create_superuser(username=self.superuser_data["username"], email=self.superuser_data['email'], password=self.superuser_data["password"])
         self.client = APIClient(raise_request_exception=True)
 
         # Test the OAuth2 authorization code flow
-        self.client.login(USERNAME=self.superuser_data['USERNAME'], password=self.superuser_data['password'])
+        self.client.login(username=self.superuser_data['username'], password=self.superuser_data['password'])
 
         authorization_url = reverse("oauth2_provider:authorize")
         response = self.client.get(
