@@ -1,32 +1,32 @@
-import africastalking
-from purchase.settings import USERNAME, API_KEY
-africastalking.initialize(USERNAME, API_KEY)
+from purchase.settings import username, api_key, sender
+import os
+import africastalking as af
+import phonenumbers
 
-default_country_code = "+254" 
+# Initialize the Africas Talking client with the required credentials
+af.initialize(username, api_key)
 
+# Initialize a service, in this case, SMS
+sms = af.SMS
 
-def sending(phone):
-    # Add the default country code to the phone number
-    phone_with_country_code = default_country_code + phone
+# Create a function to send an SMS with order details to a customer
+def send_sms(customer_name, item, quantity, total, phone_number):
+    # Parse and validate the phone number using the phonenumbers library
+    parsed_phone_number = phonenumbers.parse(phone_number, 'KE')
+    validated_phone_number = phonenumbers.format_number(parsed_phone_number, phonenumbers.PhoneNumberFormat.E164)
 
-    # Set the numbers in international format
-    recipients = [phone_with_country_code]
+    # Check if the phone number is valid
+    if validated_phone_number:
+        # Compose the SMS message with order details
+        message = f"Hello {customer_name}, this is to inform you that your order of {quantity} {item}(s), for a total of Ksh. {total} is ready for pickup. Thank you for your service."
+        
+        # Send the customized message to the validated phone number
+        try:
+            sms.send(message, [validated_phone_number], sender)
+        except Exception as e:
+            # Handle any exceptions that occur during SMS sending
+            raise Exception(f'An Error Occurred: {e}')
+    else:
+        # Raise an exception for an invalid phone number
+        raise Exception("Invalid Phone Number")
 
-    # Set your message
-    message = "Your order has been succesfuly added. Thank you for choosing us!"
-
-    # Set your shortCode or senderId
-    # sender = "55786"
-
-    try:
-        response = africastalking.SMS.send(message, recipients)
-        success_message = "Your order has been succesfuly added. Thank you for choosing us!"  # Custom success message
-        response_data = {
-            'message': success_message,
-            'SMSMessageData': response['SMSMessageData']
-        }
-        print(response_data)
-        return response_data
-    except Exception as e:
-        error_message = f'Houston, we have a problem: {e}'
-        return {'error': error_message}

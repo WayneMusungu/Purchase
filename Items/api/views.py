@@ -1,5 +1,5 @@
-from customers.models import Customer
-from .serializers import CustomerSerializer
+from Items.models import Item
+from .serializers import ItemSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from rest_framework import status
@@ -7,21 +7,21 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from oauth2_provider.contrib.rest_framework import TokenHasScope
 
-#Customer API View
-class CustomerAPIView(APIView):
-    serializer_class = CustomerSerializer
+#Item API View
+class ItemAPIView(APIView):
+    serializer_class = ItemSerializer
     permission_classes = [IsAuthenticated, TokenHasScope]
     required_scopes = ['openid']
 
     def post(self, request):
-        """POST request function to create a new Customer object"""
+        """POST request function to create a new Item object"""
 
         try:
             serializer = self.serializer_class(data=request.data)
             if serializer.is_valid(raise_exception=True):
-                # Save the serialized data to create a new Customer
+                # Save the serialized data to create a new Item
                 serializer.save()
-                return JsonResponse({"status": status.HTTP_201_CREATED, "message": "Customer Created Successfully!", "results": serializer.data})
+                return JsonResponse({"status": status.HTTP_201_CREATED, "message": "Item Created Successfully!", "results": serializer.data})
             else:
                 # Handle validation errors and return a response with error details
                 return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": serializer.errors})
@@ -30,26 +30,28 @@ class CustomerAPIView(APIView):
             return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": {"error": str(e)}})
 
     def get(self, request, pk=None):
-        """GET request function to either retrieve a given Customer object or list all Customers objects"""
+        """GET request function to either retrieve a given Item object or list all Items objects"""
 
         if pk:
-            # If the customer's primary key is part of the request, retrieve a single Customer
+            # If the item's primary key is part of the request, retrieve a single Item
             try:
-                customer_obj = get_object_or_404(Customer, id=pk)
-                serializer = self.serializer_class(customer_obj)
+                item_obj = get_object_or_404(Item, id=pk)
+                serializer = self.serializer_class(item_obj)
                 if serializer.is_valid:
-                    return JsonResponse({"status": status.HTTP_200_OK, "message": "Customer Details Retrieved Successfully!", "results": serializer.data})
+                    return JsonResponse({"status": status.HTTP_200_OK, "message": "Item Details Retrieved Successfully!", "results": serializer.data})
                 else:
+                    # Handle validation errors and return a response with error details
                     return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": serializer.errors})
             except Exception as e:
+                # Handle unexpected exceptions and return an error response
                 return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": {"error": str(e)}})
         else:
-            # If the customer's primary key is not part of the request, list all Customers
+            # If the item's primary key is not part of the request, list all Items
             try:
-                customer_objs = Customer.objects.all().order_by("-date_created")
-                serializer = self.serializer_class(customer_objs, many=True, context={'request': request})
+                item_objs = Item.objects.all().order_by("-date_created")
+                serializer = self.serializer_class(item_objs, many=True, context={'request': request})
                 if serializer.is_valid:
-                    return JsonResponse({"status": status.HTTP_200_OK, "message": "Customers Retrieved Successfully!", "results": serializer.data})
+                    return JsonResponse({"status": status.HTTP_200_OK, "message": "Items Retrieved Successfully!", "results": serializer.data})
                 else:
                     # Handle validation errors and return a response with error details
                     return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": serializer.errors})
@@ -58,15 +60,15 @@ class CustomerAPIView(APIView):
                 return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": {"error": str(e)}})
 
     def patch(self, request, pk=None):
-        """PATCH request function to update a given Customer object"""
+        """PATCH request function to update a given Item object"""
 
         try:
-            customer_obj = get_object_or_404(Customer, id=pk)
-            serializer = self.serializer_class(instance=customer_obj, data=request.data, partial=True)
+            item_obj = get_object_or_404(Item, id=pk)
+            serializer = self.serializer_class(instance=item_obj, data=request.data, partial=True)
             if serializer.is_valid(raise_exception=True):
-                # Save the updated Customer details
+                # Save the updated Item details
                 serializer.save()
-                return JsonResponse({"status": status.HTTP_200_OK, "message": "Customer Details Updated Successfully!", "results": serializer.data})
+                return JsonResponse({"status": status.HTTP_200_OK, "message": "Item Details Updated Successfully!", "results": serializer.data})
             else:
                 # Handle validation errors and return a response with error details
                 return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": serializer.errors})
@@ -75,13 +77,13 @@ class CustomerAPIView(APIView):
             return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": {"error": str(e)}})
         
     def delete(self, request, pk=None):
-        """DELETE request function to delete a given Customer object"""
+        """DELETE request function to delete a given Item object"""
 
         try:
-            customer_obj = get_object_or_404(Customer, id=pk)
-            # Delete Customer object
-            customer_obj.delete()
-            return JsonResponse({"status": status.HTTP_204_NO_CONTENT, "message": "Customer Details Deleted Successfully!"})
+            item_obj = get_object_or_404(Item, id=pk)
+            # Delete Item object
+            item_obj.delete()
+            return JsonResponse({"status": status.HTTP_204_NO_CONTENT, "message": "Item Details Deleted Successfully!"})
         except Exception as e:
             # Handle unexpected exceptions and return an error response
             return JsonResponse({"status": status.HTTP_400_BAD_REQUEST, "message": "An Error Occurred!", "results": {"error": str(e)}})
