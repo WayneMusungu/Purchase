@@ -1,15 +1,21 @@
 from django.db import models
-from customers.models import Customer
-
-# Create your models here.
-
+import uuid
 
 class Order(models.Model):
-    item = models.CharField(max_length=255)
-    phone_number=models.CharField(max_length=15, null=True)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    time = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    customer = models.ForeignKey('customers.customer', on_delete=models.PROTECT, verbose_name='Customer', null=False, blank=False)
+    item = models.ForeignKey('Items.Item', on_delete=models.PROTECT, verbose_name='Item', null=False, blank=False)
+    quantity = models.PositiveIntegerField(verbose_name='Quantity', null=False, blank=False)
+    date_created = models.DateTimeField(verbose_name='Date Created',auto_now_add=True)
+    date_modified = models.DateTimeField(verbose_name='Date Modified',auto_now=True)
+
+    def _get_order_item_total(self):
+        return self.item.price * self.quantity
+    
+    total = property(_get_order_item_total)
 
     def __str__(self):
-        return self.item
+        return str(self.customer)
+    
+    class Meta:
+        verbose_name_plural = 'Orders'

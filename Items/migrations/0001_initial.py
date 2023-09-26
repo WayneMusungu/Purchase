@@ -13,18 +13,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
+            name='Item',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, unique=True)),
-                ('first_name', models.CharField(max_length=250, verbose_name='First Name')),
-                ('last_name', models.CharField(max_length=250, verbose_name='Last Name')),
-                ('phone_number', models.CharField(max_length=250, verbose_name='Phone Number')),
+                ('name', models.CharField(max_length=250, verbose_name='Name')),
+                ('size', models.TextField(choices=[('S', 'S'), ('M', 'M'), ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL')], verbose_name='Size')),
+                ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Price')),
                 ('date_created', models.DateTimeField(auto_now_add=True, verbose_name='Date Created')),
                 ('date_modified', models.DateTimeField(auto_now=True, verbose_name='Date Modified')),
             ],
             options={
-                'verbose_name_plural': 'Customers',
+                'verbose_name_plural': 'Items',
             },
         ),
     ]

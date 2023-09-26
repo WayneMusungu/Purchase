@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from authentication import views
+from purchase import api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('customers/', include('customers.api.urls')),
-    path('orders/', include('orders.api.urls')),
+    path('api/', include(api_urls), name='api_urls'),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    path('o/callback', views.oauth_openid_callback, name="oauth_open_id_callback"),
 ]
