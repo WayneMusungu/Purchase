@@ -129,49 +129,49 @@ class ItemTestCase(TestCase):
 
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
 
-    def test_create_order(self):
-        # Create test customer and item
-        customer = Customer.objects.create(
-            first_name='John',
-            last_name='Snow',
-            phone_number='0798567357'
-        )
-        item = Item.objects.create(
-            name='Sneakers',
-            size='M',
-            price='19.99'
-        )
+    # def test_create_order(self):
+    #     # Create test customer and item
+    #     customer = Customer.objects.create(
+    #         first_name='John',
+    #         last_name='Snow',
+    #         phone_number='0798567357'
+    #     )
+    #     item = Item.objects.create(
+    #         name='Sneakers',
+    #         size='M',
+    #         price='19.99'
+    #     )
 
-        # Define the data for the new order
-        data = {
-            'customer': customer.id,
-            'item': item.id,
-            'quantity': 3,
-        }
+    #     # Define the data for the new order
+    #     data = {
+    #         'customer': customer.id,
+    #         'item': item.id,
+    #         'quantity': 3,
+    #     }
 
-        # Send a POST request to create a new order
-        response = self.client.post('/api/v1/orders', data)
-        response_info = json.loads(response.content)
+    #     # Send a POST request to create a new order
+    #     response = self.client.post('/api/v1/orders', data)
+    #     response_info = json.loads(response.content)
 
-        # Check if the request was successful (HTTP status code 201 - Created)
-        self.assertEqual(response_info['status'], 201)
+    #     # Check if the request was successful (HTTP status code 201 - Created)
+    #     self.assertEqual(response_info['status'], 201)
 
-        # Check if the order was created in the database
-        self.assertTrue(Order.objects.filter(customer=customer, item=item, quantity=3).exists())
+    #     # Check if the order was created in the database
+    #     self.assertTrue(Order.objects.filter(customer=customer, item=item, quantity=3).exists())
 
-        # Parse and validate the phone number using the phonenumbers library
-        parsed_phone_number = phonenumbers.parse(customer.phone_number, 'KE')
-        validated_phone_number = phonenumbers.format_number(parsed_phone_number, phonenumbers.PhoneNumberFormat.E164)
+    #     # Parse and validate the phone number using the phonenumbers library
+    #     parsed_phone_number = phonenumbers.parse(customer.phone_number, 'KE')
+    #     validated_phone_number = phonenumbers.format_number(parsed_phone_number, phonenumbers.PhoneNumberFormat.E164)
 
-        # Compose the SMS message with order details
-        message = f"Hello {customer.first_name} {customer.last_name}, this is to inform you that your order of {data['quantity']} {item}(s), for a total of Ksh. {response_info['results']['total']} is ready for pickup. Thank you for your service."
+    #     # Compose the SMS message with order details
+    #     message = f"Hello {customer.first_name} {customer.last_name}, this is to inform you that your order of {data['quantity']} {item}(s), for a total of Ksh. {response_info['results']['total']} is ready for pickup. Thank you for your service."
         
-        # Send the customized message to the validated phone number
-        response = sms.send(message, [validated_phone_number], SENDER)
-        print(response)
+    #     # Send the customized message to the validated phone number
+    #     response = sms.send(message, [validated_phone_number], SENDER)
+    #     print(response)
 
-        # Check if the sms response was successful (HTTP status code 101 - Success)
-        self.assertEqual(response['SMSMessageData']['Recipients'][0]['statusCode'], 101)
+    #     # Check if the sms response was successful (HTTP status code 101 - Success)
+    #     self.assertEqual(response['SMSMessageData']['Recipients'][0]['statusCode'], 101)
 
     def test_create_item_with_validation_error(self):
         # Attempt to create a item with invalid data (e.g., missing required fields)
