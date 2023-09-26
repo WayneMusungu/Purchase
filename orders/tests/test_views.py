@@ -19,11 +19,11 @@ import phonenumbers
 import africastalking as at
 from rest_framework import status
 from decouple import config
-from purchase.settings import api_key, username, sender
+from purchase.settings import API_KEY, USERNAME, SENDER
 
 
 # Initialize the Africas Talking client with the required credentials
-at.initialize(username, api_key)
+at.initialize(USERNAME, API_KEY)
 
 # Initialize a service, in this case, SMS
 sms = at.SMS
@@ -49,7 +49,7 @@ class ItemTestCase(TestCase):
 
         # Set up data for creating a superuser
         self.superuser_data = {
-            'username': 'admin',
+            'USERNAME': 'admin',
             'password': 'adminpassword',
             'email': 'admin@example.com',
         }
@@ -64,11 +64,11 @@ class ItemTestCase(TestCase):
         self.challenge = code_challenge
 
         # Create a superuser for testing
-        self.user = User.objects.create_superuser(username=self.superuser_data["username"], email=self.superuser_data['email'], password=self.superuser_data["password"])
+        self.user = User.objects.create_superuser(USERNAME=self.superuser_data["USERNAME"], email=self.superuser_data['email'], password=self.superuser_data["password"])
         self.client = APIClient(raise_request_exception=True)
 
         # Test the OAuth2 authorization code flow
-        self.client.login(username=self.superuser_data['username'], password=self.superuser_data['password'])
+        self.client.login(USERNAME=self.superuser_data['USERNAME'], password=self.superuser_data['password'])
 
         authorization_url = reverse("oauth2_provider:authorize")
         response = self.client.get(
@@ -167,7 +167,7 @@ class ItemTestCase(TestCase):
         message = f"Hello {customer.first_name} {customer.last_name}, this is to inform you that your order of {data['quantity']} {item}(s), for a total of Ksh. {response_info['results']['total']} is ready for pickup. Thank you for your service."
         
         # Send the customized message to the validated phone number
-        response = sms.send(message, [validated_phone_number], sender)
+        response = sms.send(message, [validated_phone_number], SENDER)
         print(response)
 
         # Check if the sms response was successful (HTTP status code 101 - Success)

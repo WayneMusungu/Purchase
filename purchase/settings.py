@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-api_key = config('api_key')
-username = config('username')
-sender = config('sender') 
+API_KEY = config('API_KEY')
+USERNAME = config('USERNAME')
+SENDER = config('SENDER') 
 
 
 
@@ -97,23 +97,23 @@ WSGI_APPLICATION = 'purchase.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': config("DATABASE_NAME"),
-#         'USER': config("DATABASE_USER"),
-#         'PASSWORD': config("DATABASE_PASSWORD"),
-#         'HOST': config("DATABASE_HOST"),
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config("DATABASE_NAME"),
+        'USER': config("DATABASE_USER"),
+        'PASSWORD': config("DATABASE_PASSWORD"),
+        'HOST': config("DATABASE_HOST"),
+        'PORT': '3306',
+    }
+}
 
 
 
