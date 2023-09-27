@@ -81,6 +81,7 @@ An auto generated client secret and client will be created. Make sure to copy th
 
 
 After saving the created app, you will be redirected to your app detail.
+![App Detail](app_detail.png)
 
 
 
@@ -133,6 +134,8 @@ The authorization request is sent to the Authorization Server, which then authen
 
 When the user's authentication is verified, the Authorization Server creates an authorization code and transmits it to the client application at the specified redirect_uri.
 
+![Success](success.png)
+
 
 When you have received the authorization code head over to postman and initiate a POST request to the token url to get an Access code ```bash
  http://127.0.0.1:8000/o/token/```
@@ -151,6 +154,8 @@ Note the parameters we pass:
 The process carried out by the Authorization Server involves a series of checks and verifications. Initially, it assesses whether the provided authorization code, client ID, and client secret are valid and in accordance with its records. Additionally, it verifies that the PKCE code verifier aligns with the hashed code challenge, utilizing the specific method designated for this challenge.
 
 Only when all of these validations are completed successfully does the Authorization Server proceed to grant an Access Token, a Refresh Token, and an ID token as part of its response. In essence, these tokens are issued to the client application only after all the required checks and confirmations have been successfully met.
+
+![Token](token.png)
 
 
 
