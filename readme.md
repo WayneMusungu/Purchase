@@ -159,7 +159,8 @@ Only when all of these validations are completed successfully does the Authoriza
 
 Copy the value of id token that will be generated on successful registration ```"id_token"``` head then to ```Authorization``` select ```Bearer Token```  and pass in the value on ```Token``` 
 
-![Token-id](token_id.png)
+![Token-id](token-id.png)
+
 
 ### API Endpoints
 
