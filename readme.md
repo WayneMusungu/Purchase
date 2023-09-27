@@ -74,6 +74,8 @@ http://127.0.0.1:8000//o/applications/register/
 
 ```
 
+![Register](reg.png)
+
 An auto generated client secret and client will be created. Make sure to copy the those detail and save. 
 
 
@@ -130,6 +132,27 @@ We pass in the following values in our url
 The authorization request is sent to the Authorization Server, which then authenticates the user.
 
 When the user's authentication is verified, the Authorization Server creates an authorization code and transmits it to the client application at the specified redirect_uri.
+
+
+When you have received the authorization code head over to postman and initiate a POST request to the token url to get an Access code ```bash
+ http://127.0.0.1:8000/o/token/```
+
+Remember to pass in the following parameters
+Note the parameters we pass:
+```
+•	grant_type: Set to "authorization_code" indicating the code exchange flow.
+•	client_id: The Client ID.
+•	client_secret: The Client Secret.
+•	code: The received authorization code.
+•	redirect_uri: The same callback URL used in the authorization request.
+•	code_verifier: The original secret code verifier used to generate the code_challenge. This is required for PKCE.
+```
+
+The process carried out by the Authorization Server involves a series of checks and verifications. Initially, it assesses whether the provided authorization code, client ID, and client secret are valid and in accordance with its records. Additionally, it verifies that the PKCE code verifier aligns with the hashed code challenge, utilizing the specific method designated for this challenge.
+
+Only when all of these validations are completed successfully does the Authorization Server proceed to grant an Access Token, a Refresh Token, and an ID token as part of its response. In essence, these tokens are issued to the client application only after all the required checks and confirmations have been successfully met.
+
+
 
 
 
