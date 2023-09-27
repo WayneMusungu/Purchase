@@ -11,6 +11,8 @@ import base64
 import hashlib
 import secrets
 from customers.models import Customer
+from urllib.parse import urlencode
+
 from rest_framework import status
 
 Application = get_application_model()
@@ -56,16 +58,23 @@ class CustomerTestCase(TestCase):
         self.client.login(username=self.superuser_data['username'], password=self.superuser_data['password'])
 
         authorization_url = reverse("oauth2_provider:authorize")
-        response = self.client.get(
-            authorization_url, {
-                "response_type": "code",
-                "code_challenge": self.challenge,
-                "code_challenge_method": "S256",
-                "client_id": self.application.client_id,
-                "redirect_uri": self.application.redirect_uris.split()[0],
-                "scope": "openid"
-            },
-        )
+        query_parameters = {
+            "response_type": "code",
+            "code_challenge": self.challenge,
+            "code_challenge_method": "S256",
+            "client_id": self.application.client_id,
+            "redirect_uri": self.application.redirect_uris.split()[0],
+            "scope": "openid"
+        }
+        authorization_full_url = f"{authorization_url}?{urlencode(query_parameters)}"
+
+        # Print the full authorization URL
+        print("Authorization URL:", authorization_full_url)
+
+        # Access the URL
+        response = self.client.get(authorization_full_url)
+
+
         self.assertEqual(response.status_code, 200)
 
         response = self.client.post(reverse('oauth2_provider:authorize'), {
@@ -102,8 +111,17 @@ class CustomerTestCase(TestCase):
             "code_verifier": self.verifier
         }
     
-        token_url = reverse("oauth2_provider:token")
-        response = self.client.post(token_url, token_data)
+        # Construct the token endpoint URL manually
+        token_endpoint_url = reverse("oauth2_provider:token")
+
+        # Include query parameters in the token endpoint URL
+        token_full_url = f"{token_endpoint_url}?{urlencode(token_data)}"
+
+        # Print the full token endpoint URL
+        print("Token Endpoint URL:", token_full_url)
+
+        # Make the POST request to the token endpoint
+        response = self.client.post(token_full_url)
 
         self.assertEqual(response.status_code, 200)
 

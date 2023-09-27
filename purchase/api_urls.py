@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
-class CustomerOderAPI(APIView):
+class CustomerOrderAPI(APIView):
     permission_classes = (AllowAny,)
     
     def get(self, request):
@@ -36,7 +36,7 @@ class CustomerOderAPI(APIView):
         return Response(api_urls)
 
 urlpatterns = [
-    path("", CustomerOderAPI.as_view(), name="home"),
+    path("", CustomerOrderAPI.as_view(), name="home"),
     path('v1/customers', CustomerAPIView.as_view(), name='list_create_customers'),
     path('v1/customers/<int:pk>', CustomerAPIView.as_view(), name="update_delete_customers"),
 
