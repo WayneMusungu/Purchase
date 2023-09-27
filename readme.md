@@ -91,7 +91,9 @@ A Code Verifier is a random string that needs to be generated. It should be betw
 
 You can head over to an online python interpreter and generate a Code Verifier
 
-`   import random
+`  
+
+    import random
     import string
     import base64
     import hashlib
