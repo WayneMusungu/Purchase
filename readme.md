@@ -157,6 +157,25 @@ Only when all of these validations are completed successfully does the Authoriza
 
 ![Token](token.png)
 
+Copy the value of id token that will be generated on successful registration ```"id_token"``` head then to ```Authorization``` select ```Bearer Token```  and pass in the value on ```Token``` 
+
+![Token-id](token_id.png)
+
+Endpoint for creating Customers
+
+![Customers](customers.png)
+
+Endpoint for creating Items
+
+![Items](items.png)
+
+Endpoint for creating Orders
+
+![Orders](orders.png)
+
+
+
+
 
 
 
