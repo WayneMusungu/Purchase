@@ -174,6 +174,13 @@ Endpoint for creating Orders
 ![Orders](orders.png)
 
 
+Upon Successful order an SMS alert is sent to the customer when orders are added using Africas Talkin API.
+
+![Api](api.png)
+
+
+
+
 
 
 
