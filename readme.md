@@ -161,6 +161,34 @@ Copy the value of id token that will be generated on successful registration ```
 
 ![Token-id](token_id.png)
 
+### API Endpoints
+
+```
+{
+  "Title": "Customer Endpoints",
+  "Create A Customer": "[POST] /v1/customers",
+  "List Customers": "[GET] /v1/customers",
+  "Get Customer Details": "[GET] /v1/customers/{id}",
+  "Update Customer Details": "[PATCH] /v1/customers/{id}",
+  "Delete Customer Details": "[DELETE] /v1/customers/{id}",
+}, {
+  "Title": "Item Endpoints",
+  "Create An Item": "[POST] /v1/items",
+  "List Items": "[GET] /v1/items",
+  "Get Item Details": "[GET] /v1/items/{id}",
+  "Update Item Details": "[PATCH] /v1/items/{id}",
+  "Delete Item Details": "[DELETE] /v1/items/{id}",
+}, {
+  "Title": "Order Endpoints",
+  "Create An Order": "[POST] /v1/orders",
+  "List Orders": "[GET] /v1/orders",
+  "Get Order Details": "[GET] /v1/orders/{id}",
+  "Update Order Details": "[PATCH] /v1/orders/{id}",
+  "Delete Order Details": "[DELETE] /v1/orders/{id}",
+}
+```
+
+
 Endpoint for creating Customers
 
 ![Customers](customers.png)
