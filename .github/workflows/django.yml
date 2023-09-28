@@ -1,8 +1,6 @@
 name: Django CI
 
-
 on: [push]
-
 
 jobs:
   build:
@@ -11,13 +9,14 @@ jobs:
 
     services:
       db:
-        image: mysql
+        image: postgres
         env:
-          MYSQL_DATABASE: github_actions
-          MYSQL_ROOT_PASSWORD: mysql
+          POSTGRES_DB: github_actions
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          - 5432:5432
+        options: --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=3
 
     strategy:
       max-parallel: 4
@@ -41,10 +40,11 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         SENDER: ${{ secrets.SENDER }}
         
-        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-        DATABASE_USER: ${{ secrets.DATABASE_USER }}
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+        DATABASE_NAME: github_actions
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_HOST: localhost
+        DATABASE_PORT: 5432  # PostgreSQL's default port
         
         DEBUG: ${{ secrets.DEBUG }}
       run: |

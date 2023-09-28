@@ -104,14 +104,25 @@ WSGI_APPLICATION = 'purchase.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config("DATABASE_NAME"),
+#         'USER': config("DATABASE_USER"),
+#         'PASSWORD': config("DATABASE_PASSWORD"),
+#         'HOST': config("DATABASE_HOST"),
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config("DATABASE_NAME"),
         'USER': config("DATABASE_USER"),
         'PASSWORD': config("DATABASE_PASSWORD"),
         'HOST': config("DATABASE_HOST"),
-        'PORT': '3306',
+        'PORT': '5432',  # Leave this empty for the default PostgreSQL port (5432)
     }
 }
 
