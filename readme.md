@@ -208,6 +208,12 @@ Upon Successful order an SMS alert is sent to the customer when orders are added
 ![Api](api.png)
 
 
+You can proceed to Github Action and view the test cases
+
+![Testi](test.png)
+
+
+
 
 
 
