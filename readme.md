@@ -210,7 +210,7 @@ Upon Successful order an SMS alert is sent to the customer when orders are added
 
 You can proceed to Github Action and view the test cases
 
-![Testi](test.png)
+![Test](test.png)
 
 
 
