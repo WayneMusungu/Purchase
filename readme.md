@@ -74,9 +74,8 @@ http://127.0.0.1:8000//o/applications/register/
 
 ```
 
-![Register](reg.png)
-
 An auto generated client secret and client will be created. Make sure to copy the those detail and save. 
+![Register](wayneapp.png)
 
 
 
@@ -95,7 +94,6 @@ A Code Verifier is a random string that needs to be generated. It should be betw
 You can head over to an online python interpreter and generate a Code Verifier
 
 `  
-
     import random
     import string
     import base64
@@ -110,12 +108,13 @@ You can head over to an online python interpreter and generate a Code Verifier
     print(code_challenge)
 `
 
-Copy the printed Code Verifier and Code Challenge
+Copy and save the printed value of the Code Challenge and Code Verifier
 
 Then you need to start the Authorization using the following url if you are running on local machine
 
 ```bash
-http://127.0.0.1:8000/o/authorize/register/?response_type=code&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&client_id=CLIENT_ID&redirect_uri=http://localhost:8000/o/callback&scope=openid
+
+http://127.0.0.1:8000/o/authorize/?response_type=code&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&client_id=CLIENT_ID&redirect_uri=http://localhost:8000/o/callback&scope=openid
 
 ```
 
@@ -137,8 +136,14 @@ When the user's authentication is verified, the Authorization Server creates an 
 ![Success](success.png)
 
 
-When you have received the authorization code head over to postman and initiate a POST request to the token url to get an Access code ```bash
- http://127.0.0.1:8000/o/token/```
+When you have received the authorization code head over to postman and initiate a POST request to the token url to get an Access code
+
+
+```bash
+
+http://127.0.0.1:8000/o/token/
+
+ ```
 
 Remember to pass in the following parameters
 Note the parameters we pass:
