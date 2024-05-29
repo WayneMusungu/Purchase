@@ -101,11 +101,14 @@ You can head over to an online python interpreter and generate a Code Verifier
 
     code_verifier = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(random.randint(43, 128)))
     code_verifier = base64.urlsafe_b64encode(code_verifier.encode('utf-8'))
-    print(code_verifier)
+
+    # Print the code verifier
+    print("Code Verifier:", code_verifier)
 
     code_challenge = hashlib.sha256(code_verifier).digest()
     code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replace('=', '')
-    print(code_challenge)
+    # Print the code challenge
+    print("Code Challenge:", code_challenge)
 `
 
 Copy and save the printed value of the Code Challenge and Code Verifier
@@ -117,6 +120,7 @@ Then you need to start the Authorization using the following url if you are runn
 http://127.0.0.1:8000/o/authorize/?response_type=code&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&client_id=CLIENT_ID&redirect_uri=http://localhost:8000/o/callback&scope=openid
 
 ```
+
 
 We pass in the following values in our url
 

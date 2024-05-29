@@ -1,10 +1,11 @@
-from purchase.settings import USERNAME, API_KEY, SENDER
+# from purchase.settings import USERNAME, API_KEY, SENDER
 import os
+from purchase.settings import API_KEY, username, sender
 import africastalking as af
 import phonenumbers
 
 # Initialize the Africas Talking client with the required credentials
-af.initialize(USERNAME, API_KEY)
+af.initialize(username, API_KEY)
 
 # Initialize a service, in this case, SMS
 sms = af.SMS
@@ -22,7 +23,7 @@ def send_sms(customer_name, item, quantity, total, phone_number):
         
         # Send the customized message to the validated phone number
         try:
-            sms.send(message, [validated_phone_number], SENDER)
+            sms.send(message, [validated_phone_number], sender)
         except Exception as e:
             # Handle any exceptions that occur during SMS sending
             raise Exception(f'An Error Occurred: {e}')

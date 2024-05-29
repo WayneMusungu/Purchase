@@ -29,8 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 API_KEY = config('API_KEY')
-USERNAME = config('USERNAME')
-SENDER = config('SENDER') 
+username = config('username')
+sender = config('sender') 
 
 
 
@@ -190,12 +190,14 @@ OIDC_RSA_PRIVATE_KEY  = PRIVATE_KEY.private_bytes(encoding=serialization.Encodin
 
 # OAuth2 provider settings
 OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 3600,
     'AUTHORIZATION_CODE_EXPIRE_SECONDS': 300,
-    "OIDC_ENABLED": True,
-    "OIDC_RP_INITIATED_LOGOUT_ENABLED": True,
-    "OIDC_RP_INITIATED_LOGOUT_ALWAYS_PROMPT": True,
-    "OIDC_RSA_PRIVATE_KEY": OIDC_RSA_PRIVATE_KEY,
-    "SCOPES": {
-        "openid": "OpenID Connect scope",
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 604800, 
+    'OIDC_ENABLED': True,
+    'OIDC_RP_INITIATED_LOGOUT_ENABLED': True,
+    'OIDC_RP_INITIATED_LOGOUT_ALWAYS_PROMPT': True,
+    'OIDC_RSA_PRIVATE_KEY': OIDC_RSA_PRIVATE_KEY,
+    'SCOPES': {
+        'openid': 'OpenID Connect scope',
     },
 }
