@@ -70,7 +70,7 @@ python manage.py runserver
 --> To create a client application, you need to login. Use the superuser credentials you created to login
 
 ```bash
-http://127.0.0.1:8000//o/applications/register/ 
+https://waynening.pythonanywhere.com/o/applications/register/
 
 ```
 
@@ -117,7 +117,7 @@ Then you need to start the Authorization using the following url if you are runn
 
 ```bash
 
-http://127.0.0.1:8000/o/authorize/?response_type=code&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&client_id=CLIENT_ID&redirect_uri=http://localhost:8000/o/callback&scope=openid
+https://waynening.pythonanywhere.com/o/authorize/?response_type=code&code_challenge=CODE_CHALLENGE&code_challenge_method=S256&client_id=CLIENT_ID&redirect_uri=https://waynening.pythonanywhere.com/o/callback&scope=openid
 
 ```
 
@@ -130,7 +130,7 @@ We pass in the following values in our url
 •	code_challenge: CODE-CHALLENGE #A dynamically generated value (PKCE challenge) derived from a secret Code Verifier. This is a crucial component of PKCE for enhanced security.
 •	code_challenge_method: S256 #The method of hashing used to encode the Code Verifier
 •	client_id: CLIENT_ID #The Client ID obtained during registration.
-•	redirect_uri: http://localhost:8000/o/callback #A callback URL where the authorization code will be sent after successful authentication.
+•	redirect_uri: https://waynening.pythonanywhere.com/o/callback #A callback URL where the authorization code will be sent after successful authentication.
 ```
 
 The authorization request is sent to the Authorization Server, which then authenticates the user.
@@ -145,8 +145,7 @@ When you have received the authorization code head over to postman and initiate 
 
 ```bash
 
-http://127.0.0.1:8000/o/token/
-
+https://waynening.pythonanywhere.com/o/token/
  ```
 
 Remember to pass in the following parameters
@@ -156,7 +155,7 @@ Note the parameters we pass:
 •	client_id: The Client ID.
 •	client_secret: The Client Secret.
 •	code: The received authorization code.
-•	redirect_uri: The same callback URL used in the authorization request.
+•	redirect_uri: The same callback URL used in the authorization request. https://waynening.pythonanywhere.com/o/callback
 •	code_verifier: The original secret code verifier used to generate the code_challenge. This is required for PKCE.
 ```
 
